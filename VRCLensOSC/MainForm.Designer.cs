@@ -114,10 +114,8 @@
             this.TimerApGrea = new System.Windows.Forms.Timer(this.components);
             this.TimerFocusClo = new System.Windows.Forms.Timer(this.components);
             this.TimerFocusFur = new System.Windows.Forms.Timer(this.components);
-            this.TimerDroneV = new System.Windows.Forms.Timer(this.components);
-            this.TimerDroneH = new System.Windows.Forms.Timer(this.components);
             this.oscListener = new System.ComponentModel.BackgroundWorker();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lbVer = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.sldZoom)).BeginInit();
             this.panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stepZoom)).BeginInit();
@@ -558,7 +556,7 @@
             0,
             0,
             131072});
-            this.stepMoveH.Location = new System.Drawing.Point(3, 26);
+            this.stepMoveH.Location = new System.Drawing.Point(2, 26);
             this.stepMoveH.Maximum = new decimal(new int[] {
             1,
             0,
@@ -649,7 +647,7 @@
             0,
             0,
             131072});
-            this.stepMoveV.Location = new System.Drawing.Point(3, 24);
+            this.stepMoveV.Location = new System.Drawing.Point(2, 24);
             this.stepMoveV.Maximum = new decimal(new int[] {
             1,
             0,
@@ -857,7 +855,7 @@
             0,
             0,
             131072});
-            this.stepRotV.Location = new System.Drawing.Point(3, 24);
+            this.stepRotV.Location = new System.Drawing.Point(2, 24);
             this.stepRotV.Maximum = new decimal(new int[] {
             1,
             0,
@@ -1085,31 +1083,21 @@
             this.TimerFocusFur.Interval = 10;
             this.TimerFocusFur.Tick += new System.EventHandler(this.TimerFocusFur_Tick);
             // 
-            // TimerDroneV
+            // lbVer
             // 
-            this.TimerDroneV.Interval = 10;
-            this.TimerDroneV.Tick += new System.EventHandler(this.TimerDroneV_Tick);
-            // 
-            // TimerDroneH
-            // 
-            this.TimerDroneH.Interval = 10;
-            this.TimerDroneH.Tick += new System.EventHandler(this.TimerDroneH_Tick);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(694, 473);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 12);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Ver. 1.0.6b";
+            this.lbVer.AutoSize = true;
+            this.lbVer.Location = new System.Drawing.Point(694, 473);
+            this.lbVer.Name = "lbVer";
+            this.lbVer.Size = new System.Drawing.Size(65, 12);
+            this.lbVer.TabIndex = 5;
+            this.lbVer.Text = "Ver. 1.0.7b";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(761, 489);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lbVer);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -1240,13 +1228,11 @@
         private System.Windows.Forms.Label lbApF;
         private System.Windows.Forms.Button btnDroneHold;
         private System.Windows.Forms.Button btnDroneRotHold;
-        private System.Windows.Forms.Timer TimerDroneV;
-        private System.Windows.Forms.Timer TimerDroneH;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnShortkey;
         private System.Windows.Forms.Button btnDC;
         private System.ComponentModel.BackgroundWorker oscListener;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbVer;
         private System.Windows.Forms.Button btnHandRotate;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.NumericUpDown stepMoveH;

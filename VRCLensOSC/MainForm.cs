@@ -157,50 +157,42 @@ namespace VRCLensOSC
                 case Keys.OemPeriod: TimerFocusClo.Enabled = true; btnFocusClo.Enabled = false; break;
                 case Keys.OemQuestion: TimerFocusFur.Enabled = true; btnFocusFur.Enabled = false; break;
                 case Keys.T:
-                    DroneV_final = (float)stepMoveV.Value;
-                    TimerDroneV.Enabled = true;
+                    osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendV", (float)stepMoveV.Value));
                     if (DroneKey % (int)e.KeyCode != 0) DroneKey *= (int)e.KeyCode;
                     if (DroneKey != 1) UseDrone(212, true);
                     break;
                 case Keys.F:
-                    DroneH_final = -(float)stepMoveH.Value;
-                    TimerDroneH.Enabled = true;
+                    osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendH", -(float)stepMoveH.Value));
                     if (DroneKey % (int)e.KeyCode != 0) DroneKey *= (int)e.KeyCode;
                     if (DroneKey != 1) UseDrone(212, true);
                     break;
                 case Keys.G:
-                    DroneV_final = -(float)stepMoveV.Value;
-                    TimerDroneV.Enabled = true;
+                    osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendV", -(float)stepMoveV.Value));
                     if (DroneKey % (int)e.KeyCode != 0) DroneKey *= (int)e.KeyCode;
                     if (DroneKey != 1) UseDrone(212, true);
                     break;
                 case Keys.H:
-                    DroneH_final = (float)stepMoveH.Value;
-                    TimerDroneH.Enabled = true;
+                    osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendH", (float)stepMoveH.Value));
                     if (DroneKey % (int)e.KeyCode != 0) DroneKey *= (int)e.KeyCode;
                     if (DroneKey != 1) UseDrone(212, true);
                     break;
                 case Keys.Up:
-                    DroneV_final = (float)stepRotV.Value;
-                    TimerDroneV.Enabled = true;
+                    osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendV", (float)stepRotV.Value));
                     if (DroneRotKey % (int)e.KeyCode != 0) DroneRotKey *= (int)e.KeyCode;
                     if (DroneRotKey != 1) UseDrone(213, true);
                     break;
                 case Keys.Left:
-                    DroneH_final = -(float)stepRotH.Value;
-                    TimerDroneH.Enabled = true;
+                    osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendH", -(float)stepRotH.Value));
                     if (DroneRotKey % (int)e.KeyCode != 0) DroneRotKey *= (int)e.KeyCode;
                     if (DroneRotKey != 1) UseDrone(213, true);
                     break;
                 case Keys.Down:
-                    DroneV_final = -(float)stepRotV.Value;
-                    TimerDroneV.Enabled = true;
+                    osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendV", -(float)stepRotV.Value));
                     if (DroneRotKey % (int)e.KeyCode != 0) DroneRotKey *= (int)e.KeyCode;
                     if (DroneRotKey != 1) UseDrone(213, true);
                     break;
                 case Keys.Right:
-                    DroneH_final = (float)stepRotH.Value;
-                    TimerDroneH.Enabled = true;
+                    osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendH", (float)stepRotH.Value));
                     if (DroneRotKey % (int)e.KeyCode != 0) DroneRotKey *= (int)e.KeyCode;
                     if (DroneRotKey != 1) UseDrone(213, true);
                     break;
@@ -227,82 +219,66 @@ namespace VRCLensOSC
                 case Keys.OemPeriod: TimerFocusClo.Enabled = false; btnFocusClo.Enabled = true; break;
                 case Keys.OemQuestion: TimerFocusFur.Enabled = false; btnFocusFur.Enabled = true; break;
                 case Keys.T:
-                    DroneV_final = 0f;
-                    TimerDroneV.Enabled = false;
                     if (DroneKey % (int)e.KeyCode == 0)
                     {
                         DroneKey /= (int)e.KeyCode;
-                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendV", DroneV_final));
+                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendV", 0f));
                     }
                     if (DroneKey == 1) UseDrone(212, false);
                     break;
                 case Keys.F:
-                    DroneH_final = 0f;
-                    TimerDroneH.Enabled = false;
                     if (DroneKey % (int)e.KeyCode == 0)
                     {
                         DroneKey /= (int)e.KeyCode;
-                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendH", DroneH_final));
+                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendH", 0f));
                     }
                     if (DroneKey == 1) UseDrone(212, false);
                     break;
                 case Keys.G:
-                    DroneV_final = 0f;
-                    TimerDroneV.Enabled = false;
                     if (DroneKey % (int)e.KeyCode == 0)
                     {
                         DroneKey /= (int)e.KeyCode;
-                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendV", DroneV_final));
+                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendV", 0f));
                     }
                     if (DroneKey == 1) UseDrone(212, false);
                     break;
                 case Keys.H:
-                    DroneH_final = 0f;
-                    TimerDroneH.Enabled = false;
                     if (DroneKey % (int)e.KeyCode == 0)
                     {
                         DroneKey /= (int)e.KeyCode;
-                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendH", DroneH_final));
+                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendH", 0f));
                     }
                     if (DroneKey == 1) UseDrone(212, false);
                     break;
                 case Keys.Up:
-                    DroneV_final = 0f;
-                    TimerDroneV.Enabled = false;
                     if (DroneRotKey % (int)e.KeyCode == 0)
                     {
                         DroneRotKey /= (int)e.KeyCode;
-                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendV", DroneV_final));
+                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendV", 0f));
                     }
                     if (DroneRotKey == 1) UseDrone(213, false);
                     break;
                 case Keys.Left:
-                    DroneH_final = 0f;
-                    TimerDroneH.Enabled = false;
                     if (DroneRotKey % (int)e.KeyCode == 0)
                     {
                         DroneRotKey /= (int)e.KeyCode;
-                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendH", DroneH_final));
+                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendH", 0f));
                     }
                     if (DroneRotKey == 1) UseDrone(213, false);
                     break;
                 case Keys.Down:
-                    DroneV_final = 0f;
-                    TimerDroneV.Enabled = false;
                     if (DroneRotKey % (int)e.KeyCode == 0)
                     {
                         DroneRotKey /= (int)e.KeyCode;
-                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendV", DroneV_final));
+                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendV", 0f));
                     }
                     if (DroneRotKey == 1) UseDrone(213, false);
                     break;
                 case Keys.Right:
-                    DroneH_final = 0f;
-                    TimerDroneH.Enabled = false;
                     if (DroneRotKey % (int)e.KeyCode == 0)
                     {
                         DroneRotKey /= (int)e.KeyCode;
-                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendH", DroneH_final));
+                        osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendH", 0f));
                     }
                     if (DroneRotKey == 1) UseDrone(213, false);
                     break;
@@ -329,14 +305,6 @@ namespace VRCLensOSC
             btnDroneRotHold.Enabled = b;
             btnDroneRotLeft.Enabled = b;
             btnDroneRotRight.Enabled = b;
-        }
-        private void TimerDroneV_Tick(object sender, EventArgs e)
-        {
-            osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendV", DroneV_final));
-        }
-        private void TimerDroneH_Tick(object sender, EventArgs e)
-        {
-            osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendH", DroneH_final));
         }
 
         private void OSCZoom()
