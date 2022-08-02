@@ -14,10 +14,11 @@ namespace VRCLensOSC
         private IKeyboardMouseEvents gh;
 
         public bool IsConnected = false;
+        public const int Multi = 10000;
+        public const float Div = 0.0001f;
+        public const float DivPer = 0.01f;
         private int DroneKey = 1;
         private int DroneRotKey = 1;
-        private float DroneV_final = 0f;
-        private float DroneH_final = 0f;
         private bool DroneSwitch = false;
 
         public MainForm()
@@ -45,33 +46,40 @@ namespace VRCLensOSC
                     switch (packet[0])
                     {
                         case "/avatar/parameters/VRCLZoomRadial":
-                            if (sldZoom.InvokeRequired) sldZoom.Invoke((MethodInvoker)delegate { sldZoom.Value = (int)(float.Parse(packet[1].Trim().Replace("f", "")) * 1000); });
-                            else sldZoom.Value = (int)(float.Parse(packet[1].Trim().Replace("f", "")) * 1000);
-                            if (lbZoomPer.InvokeRequired) lbZoomPer.Invoke((MethodInvoker)delegate { lbZoomPer.Text = (int)(sldZoom.Value * 0.1f) + "%"; });
-                            else lbZoomPer.Text = (int)(sldZoom.Value * 0.1f) + "%";
+                            if (sldZoom.InvokeRequired) sldZoom.Invoke((MethodInvoker)delegate { sldZoom.Value = pkt2sld(packet[1]); });
+                            else sldZoom.Value = pkt2sld(packet[1]);
+                            if (lbZoomPer.InvokeRequired) lbZoomPer.Invoke((MethodInvoker)delegate { lbZoomPer.Text = Math.Round(sldZoom.Value * DivPer) + "%"; });
+                            else lbZoomPer.Text = Math.Round(sldZoom.Value * DivPer) + "%";
                             break;
                         case "/avatar/parameters/VRCLExposureRadial":
-                            if (sldEV.InvokeRequired) sldEV.Invoke((MethodInvoker)delegate { sldEV.Value = (int)(float.Parse(packet[1].Trim().Replace("f", "")) * 1000); });
-                            else sldEV.Value = (int)(float.Parse(packet[1].Trim().Replace("f", "")) * 1000);
-                            if (lbEV.InvokeRequired) lbEV.Invoke((MethodInvoker)delegate { lbEV.Text = (int)(sldEV.Value * 0.1f) + "%"; });
-                            else lbEV.Text = (int)(sldEV.Value * 0.1f) + "%";
+                            if (sldEV.InvokeRequired) sldEV.Invoke((MethodInvoker)delegate { sldEV.Value = pkt2sld(packet[1]); });
+                            else sldEV.Value = pkt2sld(packet[1]);
+                            if (lbEV.InvokeRequired) lbEV.Invoke((MethodInvoker)delegate { lbEV.Text = Math.Round(sldEV.Value * DivPer) + "%"; });
+                            else lbEV.Text = Math.Round(sldEV.Value * DivPer) + "%";
                             break;
                         case "/avatar/parameters/VRCLApertureRadial":
-                            if (sldAp.InvokeRequired) sldAp.Invoke((MethodInvoker)delegate { sldAp.Value = (int)(float.Parse(packet[1].Trim().Replace("f", "")) * 1000); });
-                            else sldAp.Value = (int)(float.Parse(packet[1].Trim().Replace("f", "")) * 1000);
-                            if (lbApPer.InvokeRequired) lbApPer.Invoke((MethodInvoker)delegate { lbApPer.Text = (int)(sldAp.Value * 0.1f) + "%"; });
-                            else lbApPer.Text = (int)(sldAp.Value * 0.1f) + "%";
+                            if (sldAp.InvokeRequired) sldAp.Invoke((MethodInvoker)delegate { sldAp.Value = pkt2sld(packet[1]); });
+                            else sldAp.Value = pkt2sld(packet[1]);
+                            if (lbApPer.InvokeRequired) lbApPer.Invoke((MethodInvoker)delegate { lbApPer.Text = Math.Round(sldAp.Value * DivPer) + "%"; });
+                            else lbApPer.Text = Math.Round(sldAp.Value * DivPer) + "%";
                             break;
                         case "/avatar/parameters/VRCLFocusRadial":
-                            if (sldFocus.InvokeRequired) sldZoom.Invoke((MethodInvoker)delegate { sldFocus.Value = (int)(float.Parse(packet[1].Trim().Replace("f", "")) * 1000); });
-                            else sldFocus.Value = (int)(float.Parse(packet[1].Trim().Replace("f", "")) * 1000);
-                            if (lbFocus.InvokeRequired) lbFocus.Invoke((MethodInvoker)delegate { lbFocus.Text = (int)(sldFocus.Value * 0.1f) + "%"; });
-                            else lbFocus.Text = (int)(sldFocus.Value * 0.1f) + "%";
+                            if (sldFocus.InvokeRequired) sldZoom.Invoke((MethodInvoker)delegate { sldFocus.Value = pkt2sld(packet[1]); });
+                            else sldFocus.Value = pkt2sld(packet[1]);
+                            if (lbFocus.InvokeRequired) lbFocus.Invoke((MethodInvoker)delegate { lbFocus.Text = Math.Round(sldFocus.Value * DivPer) + "%"; });
+                            else lbFocus.Text = Math.Round(sldFocus.Value * DivPer) + "%";
                             break;
                     }
                 }
             }
         }
+
+        private int pkt2sld(string pkt)
+        {
+            return (int)(double.Parse(pkt.Trim().Replace("f", "")) * Multi);
+        }
+
+
         private void btnConnect_Click(object sender, EventArgs e)
         {
             if (this.btnConnect.Text == "Connect")
@@ -203,6 +211,18 @@ namespace VRCLensOSC
                         SwitchDrone();
                     }
                     break;
+                case Keys.Insert:
+                    osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 251));
+                    btnDrop.Enabled = false;
+                    break;
+                case Keys.Delete:
+                    osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 241));
+                    btnTrackself.Enabled = false;
+                    break;
+                case Keys.End:
+                    osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 250));
+                    btnHandRotate.Enabled = false;
+                    break;
             }
         }
 
@@ -285,6 +305,18 @@ namespace VRCLensOSC
                 case Keys.Y:
                     btnDroneSwitch.Enabled = true;
                     break;
+                case Keys.Insert:
+                    osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 0));
+                    btnDrop.Enabled = true;
+                    break;
+                case Keys.Delete:
+                    osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 0));
+                    btnTrackself.Enabled = true;
+                    break;
+                case Keys.End:
+                    osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 0));
+                    btnHandRotate.Enabled = true;
+                    break;
             }
         }
 
@@ -309,27 +341,27 @@ namespace VRCLensOSC
 
         private void OSCZoom()
         {
-            this.lbZoomPer.Text = ((int)(this.sldZoom.Value * 0.1f)).ToString() + "%";
-            osc.Send(new OscMessage("/avatar/parameters/VRCLZoomRadial", this.sldZoom.Value * 0.001f));
+            this.lbZoomPer.Text = ((int)Math.Round(this.sldZoom.Value * DivPer)).ToString() + "%";
+            osc.Send(new OscMessage("/avatar/parameters/VRCLZoomRadial", this.sldZoom.Value * Div));
         }
 
         private void OSCEV()
         {
-            this.lbEV.Text = ((int)(this.sldEV.Value * 0.1f)).ToString() + "%";
-            osc.Send(new OscMessage("/avatar/parameters/VRCLExposureRadial", this.sldEV.Value * 0.001f));
+            this.lbEV.Text = ((int)Math.Round(this.sldEV.Value * DivPer)).ToString() + "%";
+            osc.Send(new OscMessage("/avatar/parameters/VRCLExposureRadial", this.sldEV.Value * Div));
         }
 
         private void OSCAp()
         {
-            this.lbApPer.Text = ((int)(this.sldAp.Value * 0.1f)).ToString() + "%";
-            osc.Send(new OscMessage("/avatar/parameters/VRCLApertureRadial", this.sldAp.Value * 0.001f));
+            this.lbApPer.Text = ((int)Math.Round(this.sldAp.Value * DivPer)).ToString() + "%";
+            osc.Send(new OscMessage("/avatar/parameters/VRCLApertureRadial", this.sldAp.Value * Div));
 
         }
 
         private void OSCFocus()
         {
-            this.lbFocus.Text = ((int)(this.sldFocus.Value * 0.1f)).ToString() + "%";
-            osc.Send(new OscMessage("/avatar/parameters/VRCLFocusRadial", this.sldFocus.Value * 0.001f));
+            this.lbFocus.Text = ((int)Math.Round(this.sldFocus.Value * DivPer)).ToString() + "%";
+            osc.Send(new OscMessage("/avatar/parameters/VRCLFocusRadial", this.sldFocus.Value * Div));
         }
 
 
@@ -358,7 +390,7 @@ namespace VRCLensOSC
         }
         private void TimerZoomIn_Tick(object sender, EventArgs e)
         {
-            if (this.sldZoom.Value + (int)this.stepZoom.Value > 1000) this.sldZoom.Value = 1000;
+            if (this.sldZoom.Value + (int)this.stepZoom.Value > Multi) this.sldZoom.Value = Multi;
             else this.sldZoom.Value += (int)this.stepZoom.Value;
             OSCZoom();
         }
@@ -398,7 +430,7 @@ namespace VRCLensOSC
 
         private void TimerEVp_Tick(object sender, EventArgs e)
         {
-            if (this.sldEV.Value + (int)this.stepEV.Value > 1000) this.sldEV.Value = 1000;
+            if (this.sldEV.Value + (int)this.stepEV.Value > Multi) this.sldEV.Value = Multi;
             else this.sldEV.Value += (int)this.stepEV.Value;
             OSCEV();
         }
@@ -438,7 +470,7 @@ namespace VRCLensOSC
 
         private void TimerApGrea_Tick(object sender, EventArgs e)
         {
-            if (this.sldAp.Value + (int)this.stepAp.Value > 1000) this.sldAp.Value = 1000;
+            if (this.sldAp.Value + (int)this.stepAp.Value > Multi) this.sldAp.Value = Multi;
             else this.sldAp.Value += (int)this.stepAp.Value;
             OSCAp();
         }
@@ -477,7 +509,7 @@ namespace VRCLensOSC
 
         private void TimerFocusFur_Tick(object sender, EventArgs e)
         {
-            if (this.sldFocus.Value + (int)this.stepFocus.Value > 1000) this.sldFocus.Value = 1000;
+            if (this.sldFocus.Value + (int)this.stepFocus.Value > Multi) this.sldFocus.Value = Multi;
             else this.sldFocus.Value += (int)this.stepFocus.Value;
             OSCFocus();
         }

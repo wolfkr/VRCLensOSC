@@ -148,12 +148,12 @@
             // sldZoom
             // 
             this.sldZoom.Location = new System.Drawing.Point(166, 7);
-            this.sldZoom.Maximum = 1000;
+            this.sldZoom.Maximum = 10000;
             this.sldZoom.Name = "sldZoom";
             this.sldZoom.Size = new System.Drawing.Size(324, 45);
             this.sldZoom.TabIndex = 0;
             this.sldZoom.TabStop = false;
-            this.sldZoom.Value = 250;
+            this.sldZoom.Value = 2500;
             this.sldZoom.Scroll += new System.EventHandler(this.sldZoom_Scroll);
             // 
             // btnZoomOut
@@ -233,6 +233,11 @@
             // stepZoom
             // 
             this.stepZoom.Location = new System.Drawing.Point(690, 17);
+            this.stepZoom.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.stepZoom.Minimum = new decimal(new int[] {
             1,
             0,
@@ -242,7 +247,7 @@
             this.stepZoom.Size = new System.Drawing.Size(41, 21);
             this.stepZoom.TabIndex = 7;
             this.stepZoom.Value = new decimal(new int[] {
-            1,
+            10,
             0,
             0,
             0});
@@ -282,11 +287,16 @@
             // stepEV
             // 
             this.stepEV.Location = new System.Drawing.Point(690, 17);
+            this.stepEV.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.stepEV.Name = "stepEV";
             this.stepEV.Size = new System.Drawing.Size(41, 21);
             this.stepEV.TabIndex = 7;
             this.stepEV.Value = new decimal(new int[] {
-            1,
+            10,
             0,
             0,
             0});
@@ -326,12 +336,12 @@
             // sldEV
             // 
             this.sldEV.Location = new System.Drawing.Point(166, 7);
-            this.sldEV.Maximum = 1000;
+            this.sldEV.Maximum = 10000;
             this.sldEV.Name = "sldEV";
             this.sldEV.Size = new System.Drawing.Size(324, 45);
             this.sldEV.TabIndex = 0;
             this.sldEV.TabStop = false;
-            this.sldEV.Value = 500;
+            this.sldEV.Value = 5000;
             this.sldEV.Scroll += new System.EventHandler(this.sldEV_Scroll);
             // 
             // panel3
@@ -379,11 +389,16 @@
             // stepAp
             // 
             this.stepAp.Location = new System.Drawing.Point(690, 17);
+            this.stepAp.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.stepAp.Name = "stepAp";
             this.stepAp.Size = new System.Drawing.Size(41, 21);
             this.stepAp.TabIndex = 7;
             this.stepAp.Value = new decimal(new int[] {
-            1,
+            10,
             0,
             0,
             0});
@@ -423,7 +438,7 @@
             // sldAp
             // 
             this.sldAp.Location = new System.Drawing.Point(166, 7);
-            this.sldAp.Maximum = 1000;
+            this.sldAp.Maximum = 10000;
             this.sldAp.Name = "sldAp";
             this.sldAp.Size = new System.Drawing.Size(324, 45);
             this.sldAp.TabIndex = 0;
@@ -465,11 +480,16 @@
             // stepFocus
             // 
             this.stepFocus.Location = new System.Drawing.Point(690, 17);
+            this.stepFocus.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.stepFocus.Name = "stepFocus";
             this.stepFocus.Size = new System.Drawing.Size(41, 21);
             this.stepFocus.TabIndex = 7;
             this.stepFocus.Value = new decimal(new int[] {
-            1,
+            10,
             0,
             0,
             0});
@@ -509,7 +529,7 @@
             // sldFocus
             // 
             this.sldFocus.Location = new System.Drawing.Point(166, 7);
-            this.sldFocus.Maximum = 1000;
+            this.sldFocus.Maximum = 10000;
             this.sldFocus.Name = "sldFocus";
             this.sldFocus.Size = new System.Drawing.Size(324, 45);
             this.sldFocus.TabIndex = 0;
@@ -754,22 +774,24 @@
             // 
             // btnDrop
             // 
+            this.btnDrop.Font = new System.Drawing.Font("굴림", 8F);
             this.btnDrop.Location = new System.Drawing.Point(3, 101);
             this.btnDrop.Name = "btnDrop";
             this.btnDrop.Size = new System.Drawing.Size(57, 43);
             this.btnDrop.TabIndex = 4;
-            this.btnDrop.Text = "Drop";
+            this.btnDrop.Text = "Drop\n( INS )";
             this.btnDrop.UseVisualStyleBackColor = true;
             this.btnDrop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnDrop_MouseDown);
             this.btnDrop.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnDrop_MouseUp);
             // 
             // btnTrackself
             // 
+            this.btnTrackself.Font = new System.Drawing.Font("굴림", 8F);
             this.btnTrackself.Location = new System.Drawing.Point(66, 101);
             this.btnTrackself.Name = "btnTrackself";
             this.btnTrackself.Size = new System.Drawing.Size(57, 43);
             this.btnTrackself.TabIndex = 5;
-            this.btnTrackself.Text = "Track Self";
+            this.btnTrackself.Text = "Track Self\n( DEL )";
             this.btnTrackself.UseVisualStyleBackColor = true;
             this.btnTrackself.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTrackself_MouseDown);
             this.btnTrackself.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnTrackself_MouseUp);
@@ -787,11 +809,12 @@
             // 
             // btnHandRotate
             // 
+            this.btnHandRotate.Font = new System.Drawing.Font("굴림", 8F);
             this.btnHandRotate.Location = new System.Drawing.Point(129, 101);
             this.btnHandRotate.Name = "btnHandRotate";
             this.btnHandRotate.Size = new System.Drawing.Size(57, 43);
             this.btnHandRotate.TabIndex = 7;
-            this.btnHandRotate.Text = "Hand Rotate";
+            this.btnHandRotate.Text = "Hand Rotate\n( END )";
             this.btnHandRotate.UseVisualStyleBackColor = true;
             this.btnHandRotate.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnHandRotate_MouseDown);
             this.btnHandRotate.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnHandRotate_MouseUp);
@@ -1090,7 +1113,7 @@
             this.lbVer.Name = "lbVer";
             this.lbVer.Size = new System.Drawing.Size(65, 12);
             this.lbVer.TabIndex = 5;
-            this.lbVer.Text = "Ver. 1.0.7b";
+            this.lbVer.Text = "Ver. 1.0.9b";
             // 
             // MainForm
             // 
