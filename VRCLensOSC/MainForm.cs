@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Net;
 using System.Windows.Forms;
 using Gma.System.MouseKeyHook;
@@ -42,33 +43,55 @@ namespace VRCLensOSC
             {
                 if (oscr.State == OscSocketState.Connected)
                 {
-                    packet = oscr.Receive().ToString().Split(',');
-                    switch (packet[0])
+                    try
                     {
-                        case "/avatar/parameters/VRCLZoomRadial":
-                            if (sldZoom.InvokeRequired) sldZoom.Invoke((MethodInvoker)delegate { sldZoom.Value = pkt2sld(packet[1]); });
-                            else sldZoom.Value = pkt2sld(packet[1]);
-                            if (lbZoomPer.InvokeRequired) lbZoomPer.Invoke((MethodInvoker)delegate { lbZoomPer.Text = Math.Round(sldZoom.Value * DivPer) + "%"; });
-                            else lbZoomPer.Text = Math.Round(sldZoom.Value * DivPer) + "%";
-                            break;
-                        case "/avatar/parameters/VRCLExposureRadial":
-                            if (sldEV.InvokeRequired) sldEV.Invoke((MethodInvoker)delegate { sldEV.Value = pkt2sld(packet[1]); });
-                            else sldEV.Value = pkt2sld(packet[1]);
-                            if (lbEV.InvokeRequired) lbEV.Invoke((MethodInvoker)delegate { lbEV.Text = Math.Round(sldEV.Value * DivPer) + "%"; });
-                            else lbEV.Text = Math.Round(sldEV.Value * DivPer) + "%";
-                            break;
-                        case "/avatar/parameters/VRCLApertureRadial":
-                            if (sldAp.InvokeRequired) sldAp.Invoke((MethodInvoker)delegate { sldAp.Value = pkt2sld(packet[1]); });
-                            else sldAp.Value = pkt2sld(packet[1]);
-                            if (lbApPer.InvokeRequired) lbApPer.Invoke((MethodInvoker)delegate { lbApPer.Text = Math.Round(sldAp.Value * DivPer) + "%"; });
-                            else lbApPer.Text = Math.Round(sldAp.Value * DivPer) + "%";
-                            break;
-                        case "/avatar/parameters/VRCLFocusRadial":
-                            if (sldFocus.InvokeRequired) sldZoom.Invoke((MethodInvoker)delegate { sldFocus.Value = pkt2sld(packet[1]); });
-                            else sldFocus.Value = pkt2sld(packet[1]);
-                            if (lbFocus.InvokeRequired) lbFocus.Invoke((MethodInvoker)delegate { lbFocus.Text = Math.Round(sldFocus.Value * DivPer) + "%"; });
-                            else lbFocus.Text = Math.Round(sldFocus.Value * DivPer) + "%";
-                            break;
+                        packet = oscr.Receive().ToString().Split(',');
+                        switch (packet[0])
+                        {
+                            case "/avatar/parameters/VRCLZoomRadial":
+                                if (sldZoom.InvokeRequired) sldZoom.Invoke((MethodInvoker)delegate { sldZoom.Value = pkt2sld(packet[1]); });
+                                else sldZoom.Value = pkt2sld(packet[1]);
+                                if (lbZoomPer.InvokeRequired) lbZoomPer.Invoke((MethodInvoker)delegate { lbZoomPer.Text = Math.Round(sldZoom.Value * DivPer) + "%"; });
+                                else lbZoomPer.Text = Math.Round(sldZoom.Value * DivPer) + "%";
+                                break;
+                            case "/avatar/parameters/VRCLExposureRadial":
+                                if (sldEV.InvokeRequired) sldEV.Invoke((MethodInvoker)delegate { sldEV.Value = pkt2sld(packet[1]); });
+                                else sldEV.Value = pkt2sld(packet[1]);
+                                if (lbEV.InvokeRequired) lbEV.Invoke((MethodInvoker)delegate { lbEV.Text = Math.Round(sldEV.Value * DivPer) + "%"; });
+                                else lbEV.Text = Math.Round(sldEV.Value * DivPer) + "%";
+                                break;
+                            case "/avatar/parameters/VRCLApertureRadial":
+                                if (sldAp.InvokeRequired) sldAp.Invoke((MethodInvoker)delegate { sldAp.Value = pkt2sld(packet[1]); });
+                                else sldAp.Value = pkt2sld(packet[1]);
+                                if (lbApPer.InvokeRequired) lbApPer.Invoke((MethodInvoker)delegate { lbApPer.Text = Math.Round(sldAp.Value * DivPer) + "%"; });
+                                else lbApPer.Text = Math.Round(sldAp.Value * DivPer) + "%";
+                                break;
+                            case "/avatar/parameters/VRCLFocusRadial":
+                                if (sldFocus.InvokeRequired) sldZoom.Invoke((MethodInvoker)delegate { sldFocus.Value = pkt2sld(packet[1]); });
+                                else sldFocus.Value = pkt2sld(packet[1]);
+                                if (lbFocus.InvokeRequired) lbFocus.Invoke((MethodInvoker)delegate { lbFocus.Text = Math.Round(sldFocus.Value * DivPer) + "%"; });
+                                else lbFocus.Text = Math.Round(sldFocus.Value * DivPer) + "%";
+                                break;
+                            case "/avatar/parameters/VRCLDroneSwitch":
+                                if (int.TryParse(packet[1], out int n))
+                                {
+                                    if (n == 0)
+                                    {
+                                        if (btnDroneSwitch.InvokeRequired) btnDroneSwitch.Invoke((MethodInvoker)delegate { btnDroneSwitch.ForeColor = SystemColors.ControlText; });
+                                        else btnDroneSwitch.ForeColor = SystemColors.ControlText;
+                                    }
+                                    else if (n == 6)
+                                    {
+                                        if (btnDroneSwitch.InvokeRequired) btnDroneSwitch.Invoke((MethodInvoker)delegate { btnDroneSwitch.ForeColor = Color.DarkRed; });
+                                        else btnDroneSwitch.ForeColor = Color.DarkRed;
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+
                     }
                 }
             }
@@ -129,21 +152,27 @@ namespace VRCLensOSC
                 return false;
             }
         }
+
         //------------------------------------------------------------------------------------
+
         private void SwitchDrone()
         {
             if (DroneSwitch)
             {
                 osc.Send(new OscMessage("/avatar/parameters/VRCLDroneSwitch", 0));
+                btnDroneSwitch.ForeColor = SystemColors.ControlText;
                 DroneSwitch = false;
             }
             else
             {
                 osc.Send(new OscMessage("/avatar/parameters/VRCLDroneSwitch", 6));
+                btnDroneSwitch.ForeColor = Color.DarkRed;
                 DroneSwitch = true;
             }
         }
+
         //------------------------------------------------------------------------------------
+
         private void AssignHotKey()
         {
             gh = Hook.GlobalEvents();
@@ -162,8 +191,8 @@ namespace VRCLensOSC
                 case Keys.Oem6: TimerEVp.Enabled = true; btnEVp.Enabled = false; break;
                 case Keys.Oem1: TimerApShallow.Enabled = true; btnApShallow.Enabled = false; break;
                 case Keys.Oem7: TimerApGrea.Enabled = true; btnApGreat.Enabled = false; break;
-                case Keys.OemPeriod: TimerFocusClo.Enabled = true; btnFocusClo.Enabled = false; break;
-                case Keys.OemQuestion: TimerFocusFur.Enabled = true; btnFocusFur.Enabled = false; break;
+                case Keys.D9: TimerFocusClo.Enabled = true; btnFocusClo.Enabled = false; break;
+                case Keys.D0: TimerFocusFur.Enabled = true; btnFocusFur.Enabled = false; break;
                 case Keys.T:
                     osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendV", (float)stepMoveV.Value));
                     if (DroneKey % (int)e.KeyCode != 0) DroneKey *= (int)e.KeyCode;
@@ -204,7 +233,7 @@ namespace VRCLensOSC
                     if (DroneRotKey % (int)e.KeyCode != 0) DroneRotKey *= (int)e.KeyCode;
                     if (DroneRotKey != 1) UseDrone(213, true);
                     break;
-                case Keys.Y:
+                case Keys.U:
                     if(btnDroneSwitch.Enabled)
                     {
                         btnDroneSwitch.Enabled = false;
@@ -223,6 +252,14 @@ namespace VRCLensOSC
                     osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 250));
                     btnHandRotate.Enabled = false;
                     break;
+                case Keys.Home:
+                    osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 254));
+                    btnEnable.Enabled = false;
+                    break;
+                case Keys.PageUp:
+                    osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 222));
+                    btnPortrait.Enabled = false;
+                    break;
             }
         }
 
@@ -236,8 +273,8 @@ namespace VRCLensOSC
                 case Keys.Oem6: TimerEVp.Enabled = false; btnEVp.Enabled = true; break;
                 case Keys.Oem1: TimerApShallow.Enabled = false; btnApShallow.Enabled = true; break;
                 case Keys.Oem7: TimerApGrea.Enabled = false; btnApGreat.Enabled = true; break;
-                case Keys.OemPeriod: TimerFocusClo.Enabled = false; btnFocusClo.Enabled = true; break;
-                case Keys.OemQuestion: TimerFocusFur.Enabled = false; btnFocusFur.Enabled = true; break;
+                case Keys.D9: TimerFocusClo.Enabled = false; btnFocusClo.Enabled = true; break;
+                case Keys.D0: TimerFocusFur.Enabled = false; btnFocusFur.Enabled = true; break;
                 case Keys.T:
                     if (DroneKey % (int)e.KeyCode == 0)
                     {
@@ -302,7 +339,7 @@ namespace VRCLensOSC
                     }
                     if (DroneRotKey == 1) UseDrone(213, false);
                     break;
-                case Keys.Y:
+                case Keys.U:
                     btnDroneSwitch.Enabled = true;
                     break;
                 case Keys.Insert:
@@ -316,6 +353,14 @@ namespace VRCLensOSC
                 case Keys.End:
                     osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 0));
                     btnHandRotate.Enabled = true;
+                    break;
+                case Keys.Home:
+                    osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 0));
+                    btnEnable.Enabled = true;
+                    break;
+                case Keys.PageUp:
+                    osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 0));
+                    btnPortrait.Enabled = true;
                     break;
             }
         }
@@ -367,6 +412,8 @@ namespace VRCLensOSC
 
         //------------------------------------------------------------------------------------
 
+        #region Zoom Control
+
         private void sldZoom_Scroll(object sender, EventArgs e)
         {
             OSCZoom();
@@ -404,7 +451,12 @@ namespace VRCLensOSC
         {
             this.TimerZoomIn.Enabled = false;
         }
+
+        #endregion
+
         //------------------------------------------------------------------------------------
+
+        #region Exposure Control
 
         private void sldEV_Scroll(object sender, EventArgs e)
         {
@@ -445,7 +497,12 @@ namespace VRCLensOSC
             this.TimerEVp.Enabled = false;
         }
 
+        #endregion
+
         //------------------------------------------------------------------------------------
+
+        #region Aperture Control
+
         private void sldAp_Scroll(object sender, EventArgs e)
         {
             OSCAp();
@@ -484,7 +541,13 @@ namespace VRCLensOSC
         {
             this.TimerApGrea.Enabled = false;
         }
+
+        #endregion
+
         //------------------------------------------------------------------------------------
+
+        #region Focus Control
+
         private void sldFocus_Scroll(object sender, EventArgs e)
         {
             OSCFocus();
@@ -523,8 +586,13 @@ namespace VRCLensOSC
         {
             this.TimerFocusFur.Enabled = false;
         }
+
+        #endregion
+
         //------------------------------------------------------------------------------------
-                        
+
+        #region Control Panel - Enable
+
         private void btnEnable_MouseDown(object sender, MouseEventArgs e)
         {
             osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 254));
@@ -534,7 +602,12 @@ namespace VRCLensOSC
         {
             osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 0));
         }
+
+        #endregion
+
         //------------------------------------------------------------------------------------
+
+        #region Control Panel - DoF
 
         private void btnDoF_MouseDown(object sender, MouseEventArgs e)
         {
@@ -545,7 +618,12 @@ namespace VRCLensOSC
         {
             osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 0));
         }
+
+        #endregion
+
         //------------------------------------------------------------------------------------
+
+        #region Control Panel - OIS
 
         private void btnOIS_MouseDown(object sender, MouseEventArgs e)
         {
@@ -556,7 +634,12 @@ namespace VRCLensOSC
         {
             osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 0));
         }
+
+        #endregion
+
         //------------------------------------------------------------------------------------
+
+        #region Control Panel - Portait
 
         private void btnPortrait_MouseDown(object sender, MouseEventArgs e)
         {
@@ -567,7 +650,13 @@ namespace VRCLensOSC
         {
             osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 0));
         }
+
+        #endregion
+
         //------------------------------------------------------------------------------------
+
+        #region Control Panel - Drop
+
         private void btnDrop_MouseDown(object sender, MouseEventArgs e)
         {
             osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 251));
@@ -577,7 +666,13 @@ namespace VRCLensOSC
         {
             osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 0));
         }
+
+        #endregion
+
         //------------------------------------------------------------------------------------
+
+        #region Control Panel - TrackSelf
+
         private void btnTrackself_MouseDown(object sender, MouseEventArgs e)
         {
             osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 241));
@@ -588,8 +683,12 @@ namespace VRCLensOSC
             osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 0));
         }
 
+        #endregion
 
         //------------------------------------------------------------------------------------
+
+        #region Control Panel - DC
+
         private void btnDC_MouseDown(object sender, MouseEventArgs e)
         {
             osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 224));
@@ -599,7 +698,13 @@ namespace VRCLensOSC
         {
             osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 0));
         }
+
+        #endregion
+
         //------------------------------------------------------------------------------------
+
+        #region Panel - Hand Rotate
+
         private void btnHandRotate_MouseDown(object sender, MouseEventArgs e)
         {
             osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 250));
@@ -609,7 +714,12 @@ namespace VRCLensOSC
         {
             osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 0));
         }
+
+        #endregion
+
         //------------------------------------------------------------------------------------
+
+        #region Drone Panels
 
         private void btnDroneForward_Click(object sender, EventArgs e)
         {
@@ -671,6 +781,9 @@ namespace VRCLensOSC
             osc.Send(new OscMessage("/avatar/parameters/VRCFaceBlendH", (float)stepRotH.Value));
             osc.Send(new OscMessage("/avatar/parameters/VRCLFeatureToggle", 213));
         }
+
+        #endregion
+
         //------------------------------------------------------------------------------------
 
         private void button1_Click(object sender, EventArgs e)

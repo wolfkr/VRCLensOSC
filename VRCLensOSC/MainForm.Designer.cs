@@ -500,7 +500,7 @@
             this.btnFocusFur.Name = "btnFocusFur";
             this.btnFocusFur.Size = new System.Drawing.Size(84, 49);
             this.btnFocusFur.TabIndex = 3;
-            this.btnFocusFur.Text = "Further\n( / )";
+            this.btnFocusFur.Text = "Further\n( 0 )";
             this.btnFocusFur.UseVisualStyleBackColor = true;
             this.btnFocusFur.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnFocusFur_MouseDown);
             this.btnFocusFur.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnFocusFur_MouseUp);
@@ -521,7 +521,7 @@
             this.btnFocusClo.Name = "btnFocusClo";
             this.btnFocusClo.Size = new System.Drawing.Size(83, 49);
             this.btnFocusClo.TabIndex = 1;
-            this.btnFocusClo.Text = "Closer\n( . )";
+            this.btnFocusClo.Text = "Closer\n( 9 )";
             this.btnFocusClo.UseVisualStyleBackColor = true;
             this.btnFocusClo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnFocusClo_MouseDown);
             this.btnFocusClo.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnFocusClo_MouseUp);
@@ -697,7 +697,7 @@
             this.btnDroneSwitch.Name = "btnDroneSwitch";
             this.btnDroneSwitch.Size = new System.Drawing.Size(71, 52);
             this.btnDroneSwitch.TabIndex = 13;
-            this.btnDroneSwitch.Text = "Switch\n( Y )";
+            this.btnDroneSwitch.Text = "Switch\n( U )";
             this.btnDroneSwitch.UseVisualStyleBackColor = true;
             this.btnDroneSwitch.Click += new System.EventHandler(this.btnDroneSwitch_Click);
             // 
@@ -730,11 +730,13 @@
             // 
             // btnPortrait
             // 
+            this.btnPortrait.Font = new System.Drawing.Font("굴림", 8F);
+            this.btnPortrait.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnPortrait.Location = new System.Drawing.Point(192, 3);
             this.btnPortrait.Name = "btnPortrait";
             this.btnPortrait.Size = new System.Drawing.Size(57, 43);
             this.btnPortrait.TabIndex = 3;
-            this.btnPortrait.Text = "Portrait";
+            this.btnPortrait.Text = "Portrait\n(PGUP)";
             this.btnPortrait.UseVisualStyleBackColor = true;
             this.btnPortrait.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnPortrait_MouseDown);
             this.btnPortrait.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnPortrait_MouseUp);
@@ -763,11 +765,12 @@
             // 
             // btnEnable
             // 
+            this.btnEnable.Font = new System.Drawing.Font("굴림", 8F);
             this.btnEnable.Location = new System.Drawing.Point(3, 3);
             this.btnEnable.Name = "btnEnable";
             this.btnEnable.Size = new System.Drawing.Size(57, 43);
             this.btnEnable.TabIndex = 0;
-            this.btnEnable.Text = "Enable";
+            this.btnEnable.Text = "Enable\n(HOME)";
             this.btnEnable.UseVisualStyleBackColor = true;
             this.btnEnable.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnEnable_MouseDown);
             this.btnEnable.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnEnable_MouseUp);
@@ -1109,11 +1112,11 @@
             // lbVer
             // 
             this.lbVer.AutoSize = true;
-            this.lbVer.Location = new System.Drawing.Point(694, 473);
+            this.lbVer.Location = new System.Drawing.Point(692, 473);
             this.lbVer.Name = "lbVer";
             this.lbVer.Size = new System.Drawing.Size(65, 12);
             this.lbVer.TabIndex = 5;
-            this.lbVer.Text = "Ver. 1.0.9b";
+            this.lbVer.Text = "Ver. 1.1.0b";
             // 
             // MainForm
             // 
